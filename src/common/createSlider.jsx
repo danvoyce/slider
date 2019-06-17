@@ -338,7 +338,9 @@ export default function createSlider(Component) {
             dotStyle={dotStyle}
             activeDotStyle={activeDotStyle}
           />
-          {handles}
+          <div className={`${prefixCls}-handles`}>
+            {handles}
+          </div>
           <Marks
             className={`${prefixCls}-mark`}
             onClickLabel={disabled ? noop : this.onClickMarkLabel}
