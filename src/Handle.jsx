@@ -36,7 +36,9 @@ export default class Handle extends React.Component {
 
   handleFocus = () => {
     const { index, onHandleFocus } = this.props;
-    onHandleFocus(index);
+    if (onHandleFocus) {
+      onHandleFocus(index);
+    }
   };
 
   handleMouseDown = () => {
@@ -67,7 +69,7 @@ export default class Handle extends React.Component {
 
   render() {
     const {
-      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, onHandleFocus, ...restProps
+      index, activeIndex, prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, onHandleFocus, ...restProps
     } = this.props;
 
     const className = classNames(
@@ -93,7 +95,10 @@ export default class Handle extends React.Component {
         ref={this.setHandleRef}
         tabIndex= {_tabIndex}
         {...restProps}
-        className={className}
+        className={classNames(
+          className,
+          {'active-handle': index === activeIndex}
+        )}
         style={elStyle}
         onBlur={this.handleBlur}
         onFocus={this.handleFocus}

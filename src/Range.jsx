@@ -23,7 +23,8 @@ class Range extends React.Component {
     tabIndex: PropTypes.arrayOf(PropTypes.number),
     min: PropTypes.number,
     max: PropTypes.number,
-    onHandleFocus: PropTypes.func
+    onHandleFocus: PropTypes.func,
+    onRef: PropTypes.func
   };
 
   static defaultProps = {
@@ -31,7 +32,8 @@ class Range extends React.Component {
     allowCross: true,
     pushable: false,
     tabIndex: [],
-    onHandleFocus: () => {}
+    onHandleFocus: () => {},
+    onRef: () => {},
   };
 
   constructor(props) {
@@ -51,7 +53,16 @@ class Range extends React.Component {
       handle: null,
       recent,
       bounds,
+      activeIndex: -1,
     };
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(null)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -228,6 +239,10 @@ class Range extends React.Component {
     return this._getPointsCache.points;
   }
 
+  setActiveIndex(activeIndex) {
+    this.setState({ activeIndex });
+  }
+
   moveTo(value, isFromKeyboardEvent) {
     const { state, props } = this;
     const nextBounds = [...state.bounds];
@@ -385,7 +400,11 @@ class Range extends React.Component {
         min,
         max,
         disabled,
-        onHandleFocus,
+        onHandleFocus: (i) => {
+          onHandleFocus(i);
+          this.setState({activeIndex: i})
+        },
+        activeIndex: this.state.activeIndex,
         style: handleStyle[i],
         ref: h => this.saveHandle(i, h),
       })
