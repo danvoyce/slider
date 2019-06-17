@@ -34,6 +34,11 @@ export default class Handle extends React.Component {
     }
   }
 
+  handleFocus = () => {
+    const { index, onHandleFocus } = this.props;
+    onHandleFocus(index);
+  };
+
   handleMouseDown = () => {
     // fix https://github.com/ant-design/ant-design/issues/15324
     this.focus();
@@ -62,7 +67,7 @@ export default class Handle extends React.Component {
 
   render() {
     const {
-      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, ...restProps
+      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, onHandleFocus, ...restProps
     } = this.props;
 
     const className = classNames(
@@ -91,6 +96,7 @@ export default class Handle extends React.Component {
         className={className}
         style={elStyle}
         onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
         onKeyDown={this.handleKeyDown}
         onMouseDown={this.handleMouseDown}
 

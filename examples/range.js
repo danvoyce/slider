@@ -161,7 +161,7 @@ ReactDOM.render(
   <div>
     <div style={style}>
       <p>Basic Range，`allowCross=false`</p>
-      <Range allowCross={false} defaultValue={[0, 20]} onChange={log} />
+      <Range allowCross={false} defaultValue={[0, 20]} onChange={log} onHandleFocus={(i) => console.log(i)}/>
     </div>
     <div style={style}>
       <p>Basic Range，`step=20` </p>

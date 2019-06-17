@@ -23,6 +23,7 @@ class Range extends React.Component {
     tabIndex: PropTypes.arrayOf(PropTypes.number),
     min: PropTypes.number,
     max: PropTypes.number,
+    onHandleFocus: PropTypes.func
   };
 
   static defaultProps = {
@@ -30,6 +31,7 @@ class Range extends React.Component {
     allowCross: true,
     pushable: false,
     tabIndex: [],
+    onHandleFocus: () => {}
   };
 
   constructor(props) {
@@ -357,6 +359,7 @@ class Range extends React.Component {
       trackStyle,
       handleStyle,
       tabIndex,
+      onHandleFocus
     } = this.props;
 
     const offsets = bounds.map(v => this.calcOffset(v));
@@ -382,6 +385,7 @@ class Range extends React.Component {
         min,
         max,
         disabled,
+        onHandleFocus,
         style: handleStyle[i],
         ref: h => this.saveHandle(i, h),
       })

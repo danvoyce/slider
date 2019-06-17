@@ -57,7 +57,7 @@ export default function createSlider(Component) {
           return null;
         }
 
-        return <Handle {...restProps} key={index} />;
+        return <Handle {...restProps} key={index} index={index} />;
       },
       onBeforeChange: noop,
       onChange: noop,
